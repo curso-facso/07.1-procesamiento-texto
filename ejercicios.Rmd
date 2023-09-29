@@ -1,0 +1,46 @@
+---
+title: "Ejercicios"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Funes, el Memorioso (parte 1)
+
+
+1. Separa el texto usando el carácter de espacio " ". **Explora el parámetro simplify**
+2. Cuenta el largo de cada una de los *strings* resultantes
+3. Cuenta la cantidad de *strings* resultantes 
+4. Calcula el promedio del largo de los *string
+
+```{r, eval=FALSE}
+library(readr)
+funes <-  read_csv("data/funes_editado.csv")
+
+words <- funes$text %>% 
+  str_split(pattern = " ", simplify = T) 
+
+lenght_words <- words %>% 
+  str_length()
+
+summary(lenght_words)
+
+```
+
+## Funes, el Memorioso (parte 2)
+
+A partir de los *strings* separados:
+
+- Extrae el primer caracter de cada *string*
+- Extrae los 2 últimos caracteres 
+
+```{r}
+first_char <-  words %>% 
+  str_sub(start = 1, end = 1)
+  
+last_2 <- words %>% 
+  str_sub(start = -2, end = -1)
+```
+

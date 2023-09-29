@@ -1,0 +1,8 @@
+"0","ejemplo <- c(""amigo"", ""amiga"", ""Amiga"")"
+"0","str_detect(ejemplo, ""(A|a)mig(o|a)"")"
+"1","[1]"
+"1"," TRUE"
+"1"," TRUE"
+"1"," TRUE"
+"1","
+"

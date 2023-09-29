@@ -1,0 +1,6 @@
+"0","string <- ""siento angustia. No sé quién soy"" "
+"0","print(paste(""Programador:"", ""Take it easy. Eres un"", class(string)))"
+"1","[1]"
+"1"," ""Programador: Take it easy. Eres un character"""
+"1","
+"
