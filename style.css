@@ -11,3 +11,27 @@
 .center h1 {
   text-align: center;
 }
+
+
+.paginate_button  {
+    min-width: 0.5em !important; 
+    padding: 0.1em .5em !important;
+    font-size: 30px;
+  
+}
+
+/*
+.dataTables_info {
+    min-width: 0.5em !important; 
+    padding: 0.1em .5em !important;
+    font-size: 30px;
+  
+}
+*/
+
+#DataTables_Table_0_info {
+    min-width: 0.5em !important; 
+    padding: 0.1em .5em !important;
+    font-size: 30px;
+
+}

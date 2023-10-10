@@ -43,4 +43,48 @@ first_char <-  words %>%
 last_2 <- words %>% 
   str_sub(start = -2, end = -1)
 ```
+## Validación de datos
+
+
+```{r}
+datos <- tribble(~run, ~correo,
+        "17.456.987-1", "roberto.bolaño@123cl",
+        "15.246123-k",  "parranicanor@hola.cl",
+        "14436.987-2",  "woolf_virginiagmail.cl", 
+        "18453986-9",   "nonafernandez@hotmail.com",
+        "20.456.987-6",  "alejozambra@gmail.com"
+        )
+```
+
+
+- Crear una nueva variable que contenga el dígito verificador del run (str_split)
+- Eliminar todos los puntos de la columna *run* (str_remove)
+- Validar que el correo tenga la siguiente estructura: X@X.X 
+
+```{r}
+# Opción 1 para separar
+datos$dv <- map_chr(str_split(datos$run, "-"), 2)
+datos$run1 <- map_chr(str_split(datos$run, "-"), 1)
+```
+
+```{r, eval=FALSE}
+# Opción 2 para separar
+datos <- datos %>% 
+  separate(col = run, into = c("run1", "dv"), sep = "-", remove = F)
+
+```
+
+```{r}
+# Removemos caracteres molestos en el run
+datos <- datos %>% 
+  mutate(
+    run_editado = str_remove_all(run1, "\\.|-"))
+
+```
+
+```{r}
+# Validar el correo
+datos <- datos %>% 
+  mutate(comprobar_correo = str_detect(correo, ".+@.+\\.+."))
+```
 
