@@ -4,7 +4,7 @@ output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
 ```
 
 ## Funes, el Memorioso (parte 1)
@@ -86,5 +86,62 @@ datos <- datos %>%
 # Validar el correo
 datos <- datos %>% 
   mutate(comprobar_correo = str_detect(correo, ".+@.+\\.+."))
+```
+## Qué vergüenza
+
+Comparemos los 2 cuentos de Paulina Flores
+
+Para cada uno de los 2 textos, obtén los siguientes datos:
+- Cantidad de palabras, excluyendo los signos de puntuación
+- Cantidad de palabras únicas, excluyendo los signos de puntuación
+- Cantidad de adjetivos 
+- Cantidad de sustantivos
+- Cantidad de signos de puntuación 
+
+```{r, eval=FALSE}
+# Cargar libro completo
+libro <-  pdf_text("data/Qué vergüenza - Paulina Flores.pdf")
+
+# Seleccionar algunos capítulos
+que_verguenza <-  libro[4:13] %>% 
+  str_flatten()
+
+talcahuano <- libro[26:43] %>% 
+  str_flatten()
+
+cuentos <- c(que_verguenza, talcahuano)
+
+# Procesar con udpipe
+cuentos_procesado <- udpipe_annotate(modelo, cuentos)
+cuentos_procesado_df <- as.data.frame(cuentos_procesado)  %>% 
+  select(doc_id:xpos)
+
+```
+
+
+```{r, eval=FALSE}
+
+# Número de palabras
+cuentos_procesado_df %>% 
+  filter(upos != "PUNCT") %>% 
+  group_by(doc_id) %>% 
+  summarise(n_palabras = n())
+
+# Número de palabras distintas
+cuentos_procesado_df %>% 
+  filter(upos != "PUNCT") %>% 
+  group_by(doc_id, token) %>%
+  slice(1) %>% 
+  group_by(doc_id) %>% 
+  summarise(n_palabras = n())
+
+# Número de signos de puntación, adjetivos y sustantivos
+cuentos_procesado_df %>% 
+  filter(upos %in% c("PUNCT", "ADJ", "NOUN")) %>% 
+  group_by(doc_id, upos) %>% 
+  summarise(n_palabras = n())
+
+
+
 ```
 

@@ -592,18 +592,36 @@ Luego, podemos cargarlo con `udpipe_load_model`
 modelo <- udpipe_load_model("spanish-ancora-ud-2.5-191206.udpipe")
 ```
 
+
+## Volvamos a Funes
+
+El texto está cargado en páginas
+
+. . .
+
+Cada página fue cargada como un elemento de una lista
+
+```{r, echo=TRUE}
+length(funes_bruto)
+
+```
+
 . . .
 
 Necesitamos tener todo en un solo *string*
 
-```{r}
+```{r, echo=TRUE}
 funes_full <- str_flatten(funes_bruto)
+length(funes_full)
 ```
 
-
+ 
 
 ## udpipe: etiquetar 
 
+
+::: panel-tabset
+## udpipe
 
 ```{r}
 funes_procesado <- udpipe_annotate(modelo, x = funes_full)
@@ -629,16 +647,174 @@ funes_procesado_df %>%
 
 
 ```
+
+
+## token
+
+
+::: fragment
+Unidad de texto
+:::
+
+::: fragment
+Definición arbitraria
+:::
+
+::: fragment
+Suele usarse la palabra como unidad básica
+:::
+
+::: fragment
+Pueden ser secuencias de palabras (2, 3, 4 ... n) 
+:::
+
+::: fragment
+Incluso pueden ser secuencias de caracteres
+:::
+
+## conceptos
+
+- *doc_id*: identificador del texto
+- *paragraph_id*: identificador de párrafo
+- *sentence_id*: identificador de oración
+- *sentence*: oración 
+- *token_id*: identificador token
+- *lemma*: forma no flexionada de una palabra
+- *upos*: universal part of speech
+- *xpos*: desagregación de xpos
+
+
+:::
+
+
 ## Exploremos los resultados
 
+Revisemos este código en RStudio
+
+```{r, eval=FALSE}
+# Conteo de categorías 1
+funes_procesado_df %>% 
+  count(upos) 
+
+# Conteo de categorías 2
+funes_procesado_df %>% 
+  count(xpos) 
+
+# Tokens más usados
+funes_procesado_df %>% 
+  count(token) %>% 
+  arrange(desc(n))
+
+# Tokens más usados sin puntuación
+funes_procesado_df %>%
+  filter(upos != "PUNCT") %>% 
+  count(token) %>% 
+  arrange(desc(n))
+
+# Cantidad de tokens únicos
+length(unique(funes_procesado_df$token))
+
+# Cantidad de lemas únicos
+length(unique(funes_procesado_df$lemma))
+
+
+```
+
+## Eliminando stopwords
+
+A veces, es útil remover *stopwords*
 
 ```{r}
-funes_procesado_df %>% 
-  count(upos) %>% view()
+funes_procesado_df %>%
+  filter(upos != "PUNCT") %>% 
+  count(token) %>% 
+  arrange(desc(n)) %>% 
+  slice(1:10)
 
-funes_procesado_df %>% 
-  count(xpos) %>% view()
 ```
+
+
+. . .
+
+```{r}
+library(quanteda)
+stop <- quanteda::stopwords("es")
+
+funes_procesado_df %>%
+  filter(upos != "PUNCT") %>% 
+  filter(!token %in% stop  ) %>% 
+  count(token) %>% 
+  arrange(desc(n)) %>% 
+  slice(1:5)
+
+
+```
+
+
+
+## Más de un texto
+
+::: panel-tabset
+
+## Qué vergüenza
+
+![](imagenes/portada_que_verguenza.png){width="300"}
+
+## cargar cuentos 
+
+```{r, eval=F}
+# Cargar libro completo
+libro <-  pdf_text("data/Qué vergüenza - Paulina Flores.pdf")
+
+# Seleccionar algunos capítulos
+que_verguenza <-  libro[4:13] %>% 
+  str_flatten()
+
+talcahuano <- libro[26:43] %>% 
+  str_flatten()
+
+cuentos <- c(que_verguenza, talcahuano)
+
+# Procesar con udpipe
+cuentos_procesado <- udpipe_annotate(modelo, cuentos)
+cuentos_procesado_df <- as.data.frame(cuentos_procesado)  %>% 
+  select(doc_id:xpos)
+
+
+```
+
+
+
+:::
+
+## Ejercicio: Qué vergüenza
+
+Comparemos los 2 cuentos de Paulina Flores
+
+Para cada uno de los 2 textos, obtén los siguientes datos:
+
+- Cantidad de palabras, excluyendo los signos de puntuación
+- Cantidad de palabras únicas, excluyendo los signos de puntuación
+- Cantidad de adjetivos 
+- Cantidad de sustantivos
+- Cantidad de signos de puntuación 
+
+
+## Al cierre
+
+Los datos de texto, usualmente, requieren preprocesamiento
+
+. . .
+
+stringr es un gran aliado
+
+. . .
+
+Las expresiones regulares forman parte del cóctel
+
+. . .
+
+**Próxima clase**: vectorización de textos
 
 
 
