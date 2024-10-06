@@ -27,6 +27,11 @@ execute:
 
 
 ::: panel-tabset
+
+## Borges
+
+![](imagenes/borges.jpg){width="250" fig-align="center"}
+
 ## Funes
 
 ```{r}
@@ -72,8 +77,15 @@ pos_df %>%
 :::
 
 
+## Motivación: chilenos en la memoria
 
+**¿Qué recordamos en Wikipedia?**
 
+Social memory about people from a country. The case of notable Chileans in Wikipedia. Wiki Workshop 2024 (Beytía, P., Rojas, C. & Cruz, C 2024 ).
+
+. . .
+
+[Aplicación](https://www.monitorsocial.cl/chilenos)
 
 
 
@@ -279,9 +291,10 @@ str_split(bandas, pattern = " ")
 ```
 
 
-## Ejercicio: Funes, el Memorioso (parte 1)
+## Ejercicio: Funes, el Memorioso (1)
 
-Con el siguiente código carga el texto de *Funes*, ya pre procesado 
+
+Con el siguiente código cargamos el texto de *Funes*, ya pre procesado 
 
 ```{r, echo=TRUE}
 library(readr)
@@ -294,7 +307,9 @@ funes <-  read_csv("data/funes_editado.csv")
 3. Cuenta la cantidad de *strings* resultantes 
 4. Calcula el promedio del largo de los *strings*
 
-## Ejercicio: Funes, el Memorioso (parte 1)
+
+
+## Ejercicio: Funes, el Memorioso (1)
 
 Quedan caracteres molestos
 
@@ -309,7 +324,7 @@ words[filtro][1:10]
 
 Ya nos haremos cargo de esto
 
-## Ejercicio: Funes, el Memorioso (parte 2)
+## Ejercicio: Funes, el Memorioso (2)
 
 A partir de los *strings* separados:
 
@@ -462,6 +477,38 @@ Pero *backslash* también es un escape en el mundo de los *strings*
 El segundo *backslash* escapa para *strings*  
 
 **Consejo: Piensen que el doble *backslash* es la manera de escapar un caracter especial**
+
+## Ejercicio para la casa (1)
+
+::: panel-tabset
+
+## Enríquez
+
+![](imagenes/nuestra-parte-de-noche.jpeg){width="400" fig-align="center"}
+
+## Instrucciones
+
+- Carga el archivo "Nuestra_parte_de_noche_Mariana_Enriquez.pdf" con la función pdf_text.  
+- Cuenta el número de signos de puntuación que tiene la novela, utilizando la expresión regular [:punct:]     
+- Cuenta la cantidad de veces que aparecen las palabras médium y dictadura
+
+:::
+
+
+```{r, eval=FALSE, echo=FALSE}
+
+mariana <-  pdftools::pdf_text("data/Nuestra_parte_de_noche_Mariana_Enriquez.pdf") 
+puntuacion <- mariana %>% 
+  str_extract_all("[:punct:]")
+
+medium <- mariana %>% 
+  str_count("médium")
+
+sum(medium)
+```
+
+
+
 
 ## Ejercicio: validando datos
 

@@ -9,8 +9,7 @@ knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
 
 ## Funes, el Memorioso (parte 1)
 
-
-1. Separa el texto usando el carácter de espacio " ". **Explora el parámetro simplify**
+1. Separa el texto usando el carácter de espacio (" "). **Explora el parámetro simplify de la función str_split**
 2. Cuenta el largo de cada una de los *strings* resultantes
 3. Cuenta la cantidad de *strings* resultantes 
 4. Calcula el promedio del largo de los *string
@@ -58,7 +57,9 @@ datos <- tribble(~run, ~correo,
 
 
 - Crear una nueva variable que contenga el dígito verificador del run (str_split)
+
 - Eliminar todos los puntos de la columna *run* (str_remove)
+
 - Validar que el correo tenga la siguiente estructura: X@X.X 
 
 ```{r}
@@ -92,6 +93,7 @@ datos <- datos %>%
 Comparemos los 2 cuentos de Paulina Flores
 
 Para cada uno de los 2 textos, obtén los siguientes datos:
+
 - Cantidad de palabras, excluyendo los signos de puntuación
 - Cantidad de palabras únicas, excluyendo los signos de puntuación
 - Cantidad de adjetivos 
