@@ -11,8 +11,6 @@ execute:
   echo: true
 ---
 
-
-
 ## Contenidos de la clase
 
 -   Herramientas del tidyverse para manejo de *strings*
@@ -21,13 +19,9 @@ execute:
 
 # ¿Por qué es relevante conocer herramientas para manejar *strings*? {.center background-color="aquamarine"}
 
-
-
 ## Motivación: Funes, el Memorioso
 
-
 ::: panel-tabset
-
 ## Borges
 
 ![](imagenes/borges.jpg){width="250" fig-align="center"}
@@ -41,7 +35,6 @@ funes_bruto
 ```
 
 ## pre procesamiento
-
 
 ```{r, echo=FALSE}
 library(tidyverse)
@@ -72,10 +65,7 @@ pos_df %>%
   unique()
 
 ```
-
-
 :::
-
 
 ## Motivación: chilenos en la memoria
 
@@ -86,8 +76,6 @@ Social memory about people from a country. The case of notable Chileans in Wikip
 . . .
 
 [Aplicación](https://www.monitorsocial.cl/chilenos)
-
-
 
 ## Herramientas para trabajar con texto
 
@@ -138,7 +126,7 @@ print("String: Gracias por aliviar mi angustia existencial")
 
 ## ¿Qué es un string?
 
-Si usamos comillas dobles dentro de un *string*, tendremos problemas 
+Si usamos comillas dobles dentro de un *string*, tendremos problemas
 
 ```{r, error=TRUE, echo=TRUE}
 print("Vito Corleone lo reprendió, "Nunca digas lo que piensas frente a extraños" ")
@@ -150,7 +138,6 @@ print("Vito Corleone lo reprendió, "Nunca digas lo que piensas frente a extrañ
 print('Vito Corleone lo reprendió, "Nunca digas lo que piensas frente a extraños" ')
 ```
 
-
 ## Impresión de un string
 
 ```{r, echo=TRUE}
@@ -159,15 +146,13 @@ print('Vito Corleone lo reprendió: "Nunca digas lo que piensas frente a extrañ
 
 Warning: La representación impresa de un string no siempre coincide con el verdadero string
 
-
 . . .
 
-Con `writeLines` podemos imprimir mejor  
+Con `writeLines` podemos imprimir mejor
 
 ```{r, echo=TRUE}
 writeLines('Vito Corleone lo reprendió: "Nunca digas lo que piensas frente a extraños" ')
 ```
-
 
 . . .
 
@@ -175,60 +160,47 @@ El *backslash* se agrega debido a que el caracter " tiene una función especial
 
 Más detalles en breve
 
-
-
 # stringr {.center background-color="aquamarine"}
 
 ## stringr
 
-
-
 ::: columns
 ::: {.column width="50%"}
-
 ![](imagenes/logo_stringr.png){width="250"}
 :::
 
-
 ::: {.column width="50%"}
-
 ::: fragment
+-   Pertenece al `tidyverse`
 
-- Pertenece al `tidyverse`
+-   [Aquí](https://stringr.tidyverse.org/index.html) está la documentación oficial
 
-- [Aquí](https://stringr.tidyverse.org/index.html) está la documentación oficial
+-   Construido sobre [stringi](https://stringi.gagolewski.com/index.html#)
 
-- Construido sobre [stringi](https://stringi.gagolewski.com/index.html#)
-
-- Todas las funciones comienzan con str_
-
+-   Todas las funciones comienzan con str\_
 :::
-
-
 :::
 :::
 
 ## Funciones de uso común
 
-- `str_to_lower`: pasar todo a minúscula
-- `str_sub`: seleccionar parte de un string
-- `str_replace`: reemplazar parte de un string
-- `str_length`: largo de un string
-- `str_detect`: detectar un string
-- `str_extract`: extraer un string
-- `str_split`: dividir un string
+-   `str_to_lower`: pasar todo a minúscula
+-   `str_sub`: seleccionar parte de un string
+-   `str_replace`: reemplazar parte de un string
+-   `str_length`: largo de un string
+-   `str_detect`: detectar un string
+-   `str_extract`: extraer un string
+-   `str_split`: dividir un string
 
 . . .
 
 #### Todas las funciones operan vectorizadamente
-
 
 ## stringr en acción
 
 ```{r, echo=TRUE}
 bandas <-  c("Rush", "Dream Theater", "Tool", "Rage Against the Machine")
 ```
-
 
 **str_to_lower**
 
@@ -247,7 +219,6 @@ str_sub(bandas, start = 1, end =  2)
 ```
 
 ## stringr en acción
-
 
 **str_replace**
 
@@ -273,7 +244,6 @@ str_replace_all(bandas, pattern = "a", replacement = "x")
 
 ## stringr en acción
 
-
 **str_extract**
 
 ```{r, echo=TRUE}
@@ -290,24 +260,21 @@ str_extract(bandas, pattern = "a")
 str_split(bandas, pattern = " ") 
 ```
 
-
 ## Ejercicio: Funes, el Memorioso (1)
 
+Con el siguiente código cargamos el texto de *Funes*, ya pre procesado
 
-Con el siguiente código cargamos el texto de *Funes*, ya pre procesado 
+Descarga los datos [acá](https://1drv.ms/f/c/3ba457a6b989f5e0/EuJyKdmhgW1LvaJ5Nf9qo0YBPQHuDyqukG-z30drWwjrxg?e=c4CDHl)
 
 ```{r, echo=TRUE}
 library(readr)
 funes <-  read_csv("data/funes_editado.csv")
 ```
 
-
-1. Separa el texto usando el carácter de espacio " ". Explora el parámetro simplify
-2. Cuenta el largo de cada una de los *strings* resultantes
-3. Cuenta la cantidad de *strings* resultantes 
-4. Calcula el promedio del largo de los *strings*
-
-
+1.  Separa el texto usando el carácter de espacio " ". Explora el parámetro simplify
+2.  Cuenta el largo de cada una de los *strings* resultantes
+3.  Cuenta la cantidad de *strings* resultantes
+4.  Calcula el promedio del largo de los *strings*
 
 ## Ejercicio: Funes, el Memorioso (1)
 
@@ -315,12 +282,12 @@ Quedan caracteres molestos
 
 ```{r}
 words <- funes$text %>% 
-  str_split(pattern = " ", simplify = T) 
+  str_split(pattern = " ", simplify = F) |> 
+  unlist() # desanidamos la lista
 
 filtro <- words %>% str_detect("\\(|\\.")
 words[filtro][1:10]
 ```
-
 
 Ya nos haremos cargo de esto
 
@@ -328,11 +295,10 @@ Ya nos haremos cargo de esto
 
 A partir de los *strings* separados:
 
-- Extrae el primer caracter de cada *string*
-- Extrae los 2 últimos caracteres 
+-   Extrae el primer caracter de cada *string*
+-   Extrae los 2 últimos caracteres
 
 # Expresiones regulares {.center background-color="aquamarine"}
-
 
 ## Expresiones regulares: primeros pasos
 
@@ -377,10 +343,9 @@ str_detect(ejemplo, "(A|a)mig(o|a)")
 
 Hay coincidencia en todos los *strings*
 
-
 ## Explicación regex
 
-En general, las expresiones regulares son compartidas entre los lenguajes de programación. 
+En general, las expresiones regulares son compartidas entre los lenguajes de programación.
 
 Existe una gran cantidad de expresiones regulares
 
@@ -436,11 +401,9 @@ funes2[[1]] %>%
 
 
 ```
-
 :::
 
 ## Patrones más complejos
-
 
 ```{r, echo=TRUE}
 # Encontrar un string más complejo
@@ -454,7 +417,7 @@ Me interesa trabajar con los paréntesis
 
 . . .
 
-```{r, error=TRUE, echo=TRUE} 
+```{r, error=TRUE, echo=TRUE}
 funes2 %>% 
   str_count("(")
 ```
@@ -468,32 +431,30 @@ funes2 %>%
   str_count("\\(")
 
 ```
+
 . . .
 
 El primer *backslash* escapa el significado de ( en la dimensión de expresiones regulares.
 
-Pero *backslash* también es un escape en el mundo de los *strings* 
+Pero *backslash* también es un escape en el mundo de los *strings*
 
-El segundo *backslash* escapa para *strings*  
+El segundo *backslash* escapa para *strings*
 
 **Consejo: Piensen que el doble *backslash* es la manera de escapar un caracter especial**
 
 ## Ejercicio para la casa (1)
 
 ::: panel-tabset
-
 ## Enríquez
 
 ![](imagenes/nuestra-parte-de-noche.jpeg){width="400" fig-align="center"}
 
 ## Instrucciones
 
-- Carga el archivo "Nuestra_parte_de_noche_Mariana_Enriquez.pdf" con la función pdf_text.  
-- Cuenta el número de signos de puntuación que tiene la novela, utilizando la expresión regular [:punct:]     
-- Cuenta la cantidad de veces que aparecen las palabras médium y dictadura
-
+-   Carga el archivo "Nuestra_parte_de_noche_Mariana_Enriquez.pdf" con la función pdf_text.\
+-   Cuenta el número de signos de puntuación que tiene la novela, utilizando la expresión regular \[:punct:\]\
+-   Cuenta la cantidad de veces que aparecen las palabras médium y dictadura
 :::
-
 
 ```{r, eval=FALSE, echo=FALSE}
 
@@ -506,9 +467,6 @@ medium <- mariana %>%
 
 sum(medium)
 ```
-
-
-
 
 ## Ejercicio: validando datos
 
@@ -532,13 +490,12 @@ datos <- tribble(~run, ~correo,
 
 El mandante te pide hacer la siguiente edición:
 
-- Crear una nueva variable que contenga el dígito verificador del run (`separate` o  `str_split`)
+-   Crear una nueva variable que contenga el dígito verificador del run (`separate` o `str_split`)
 
 **OJO**: el resultado de `str_split` es una lista anidada
 
-- Eliminar todos los puntos de la columna *run* (str_remove)
-- Validar que el correo tenga la siguiente estructura: X@X.X 
-
+-   Eliminar todos los puntos de la columna *run* (str_remove)
+-   Validar que el correo tenga la siguiente estructura: X\@X.X
 :::
 
 ## No todo envejece bien
@@ -547,11 +504,11 @@ En el pasado, el manejo de *strings* era una habilidad escasa
 
 . . .
 
-[GPT-3](https://chat.openai.com/) resuelve el problema de manera muy sencilla
+[GPT](https://chat.openai.com/) resuelve el problema de manera muy sencilla
 
 . . .
 
-Debemos entender el funcionamiento general de las regex 
+Debemos entender el funcionamiento general de las regex
 
 ## En conclusión...
 
@@ -567,9 +524,7 @@ Si `stringr` no tiene lo que necesitan, es muy probable que lo encuentren en `st
 
 . . .
 
-
 # udpipe: Part of Speech (POS) {.center background-color="aquamarine"}
-
 
 ## Part of Speech
 
@@ -577,20 +532,19 @@ Categorías gramaticales
 
 ![](imagenes/pos.jpg){width="880"}
 
-
 ## Part of speech
 
 En español existen 9 categorías gramaticales (en inglés son solo 8)
 
-- Sustantivo (o nombre)
-- Adjetivo
-- Artículo
-- Pronombre
-- Verbo
-- Adverbio
-- Interjección
-- Preposición
-- Conjunción
+-   Sustantivo (o nombre)
+-   Adjetivo
+-   Artículo
+-   Pronombre
+-   Verbo
+-   Adverbio
+-   Interjección
+-   Preposición
+-   Conjunción
 
 ## Modelos
 
@@ -606,7 +560,7 @@ Basado en el trabajo de la Charles University (República Checa)
 
 . . .
 
-*Fine tuning* de BERT para la tarea específica de etiquetado POS 
+*Fine tuning* de BERT para la tarea específica de etiquetado POS
 
 . . .
 
@@ -614,7 +568,7 @@ Basado en el trabajo de la Charles University (República Checa)
 
 . . .
 
-El valor F1 para la tarea de POS en español es de 99.06 
+El valor F1 para la tarea de POS en español es de 99.06
 
 ## udpipe: cargando el modelo
 
@@ -623,7 +577,7 @@ El valor F1 para la tarea de POS en español es de 99.06
 library(udpipe)
 ```
 
-Lo primero que debemos hacer es descargar un modelo 
+Lo primero que debemos hacer es descargar un modelo
 
 Utilizaremos uno llamado *spanish-ancora*
 
@@ -638,7 +592,6 @@ Luego, podemos cargarlo con `udpipe_load_model`
 ```{r, eval=TRUE, echo=TRUE}
 modelo <- udpipe_load_model("spanish-ancora-ud-2.5-191206.udpipe")
 ```
-
 
 ## Volvamos a Funes
 
@@ -662,10 +615,7 @@ funes_full <- str_flatten(funes_bruto)
 length(funes_full)
 ```
 
- 
-
-## udpipe: etiquetar 
-
+## udpipe: etiquetar
 
 ::: panel-tabset
 ## udpipe
@@ -695,9 +645,7 @@ funes_procesado_df %>%
 
 ```
 
-
 ## token
-
 
 ::: fragment
 Unidad de texto
@@ -712,7 +660,7 @@ Suele usarse la palabra como unidad básica
 :::
 
 ::: fragment
-Pueden ser secuencias de palabras (2, 3, 4 ... n) 
+Pueden ser secuencias de palabras (2, 3, 4 ... n)
 :::
 
 ::: fragment
@@ -721,18 +669,15 @@ Incluso pueden ser secuencias de caracteres
 
 ## conceptos
 
-- *doc_id*: identificador del texto
-- *paragraph_id*: identificador de párrafo
-- *sentence_id*: identificador de oración
-- *sentence*: oración 
-- *token_id*: identificador token
-- *lemma*: forma no flexionada de una palabra
-- *upos*: universal part of speech
-- *xpos*: desagregación de xpos
-
-
+-   *doc_id*: identificador del texto
+-   *paragraph_id*: identificador de párrafo
+-   *sentence_id*: identificador de oración
+-   *sentence*: oración
+-   *token_id*: identificador token
+-   *lemma*: forma no flexionada de una palabra
+-   *upos*: universal part of speech
+-   *xpos*: desagregación de xpos
 :::
-
 
 ## Exploremos los resultados
 
@@ -780,7 +725,6 @@ funes_procesado_df %>%
 
 ```
 
-
 . . .
 
 ```{r}
@@ -797,17 +741,14 @@ funes_procesado_df %>%
 
 ```
 
-
-
 ## Más de un texto
 
 ::: panel-tabset
-
 ## Qué vergüenza
 
 ![](imagenes/portada_que_verguenza.png){width="300"}
 
-## cargar cuentos 
+## cargar cuentos
 
 ```{r, eval=F}
 # Cargar libro completo
@@ -829,9 +770,6 @@ cuentos_procesado_df <- as.data.frame(cuentos_procesado)  %>%
 
 
 ```
-
-
-
 :::
 
 ## Ejercicio: Qué vergüenza
@@ -840,12 +778,97 @@ Comparemos los 2 cuentos de Paulina Flores
 
 Para cada uno de los 2 textos, obtén los siguientes datos:
 
-- Cantidad de palabras, excluyendo los signos de puntuación
-- Cantidad de palabras únicas, excluyendo los signos de puntuación
-- Cantidad de adjetivos 
-- Cantidad de sustantivos
-- Cantidad de signos de puntuación 
+-   Cantidad de palabras, excluyendo los signos de puntuación
+-   Cantidad de palabras únicas, excluyendo los signos de puntuación
+-   Cantidad de adjetivos
+-   Cantidad de sustantivos
+-   Cantidad de signos de puntuación
 
+## Ejemplo final
+
+::: panel-tabset
+## Jrushchov
+
+::: columns
+::: {.column width="50%"}
+![](imagenes/nikita.jpg){fig-align="left"}
+:::
+
+::: {.column width="50%"}
+
+**Informe secreto XX Congreso del PCUS**
+
+:::
+:::
+
+
+
+## limpieza básica
+
+```{r}
+informe <-  pdf_text("data/Nikita Khrushchev (1956)_ Informe Secreto al XX Congreso del PCUS_.pdf")
+
+# Aplanamos por conveniencia
+informe_flatt <- informe %>% 
+  str_flatten()
+
+informe_flatt <- informe_flatt |> 
+  str_remove_all("Nikita Khrushchev \\(1956\\): Informe Secreto al XX Congreso del PCUS.")  |> 
+  str_remove_all("https://www.marxists.org/espanol/khrushchev/1956/febrero25.htm\\?utm_source=chatgpt.com")
+
+
+```
+
+## udpipe
+
+```{r}
+
+
+# Procesar con udpipe
+informe_procesado <- udpipe_annotate(modelo, informe_flatt)
+informe_procesado_df <- as.data.frame(informe_procesado)  %>% 
+  select(doc_id:xpos)
+
+
+
+
+
+
+```
+
+## sustantivos propios
+
+```{r}
+sustantivos_propios <- informe_procesado_df |> 
+   filter(upos == "PROPN")
+
+sustantivos_propios |> 
+  count(token)  |> 
+  arrange(desc(n)) |> 
+  slice(1:10)
+```
+
+
+## adjectivos
+
+```{r}
+adjectivos <- informe_procesado_df |> 
+   filter(upos == "ADJ")
+
+adjectivos |> 
+  count(token)  |> 
+  arrange(desc(n)) |> 
+  slice(1:10)
+
+```
+
+## totalitario
+
+```{r}
+informe_procesado_df |>
+  filter(token == "totalitario" | token == "totalitarismo")
+```
+:::
 
 ## Al cierre
 
@@ -862,7 +885,5 @@ Las expresiones regulares forman parte del cóctel
 . . .
 
 **Próxima clase**: vectorización de textos
-
-
 
 # Métodos computacionales para las ciencias sociales {.center background-color="aquamarine"}

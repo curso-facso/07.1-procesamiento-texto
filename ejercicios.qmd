@@ -1,7 +1,12 @@
 ---
 title: "Ejercicios"
-output: pdf_document
+format:
+  pdf:
+    colorlinks: true
 ---
+
+
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
